@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+const express = require('express');
+const bodyParser = require('body-parser');
+const cors = require('cors');
+const mongoose = require('mongoose');
+const config = require("config");
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
 
-export default App;
+require('./models');
+const routes = require('./routes');
+
+
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use('/', routes);
+
+//Geting the Database URL
+const database = config.get("dbURL");
+
+  // Start the server
+  const port = 5500;
+  app.listen(port, () => {
+    console.log(`Server Started on  ${port}`);
+  });
+
+
+// DB Connection
+mongoose
+  .connect(database, {
+    useNewUrlParser: true,
+  })
+  .then(() => console.log("MongoDB Connected..."))
+  .catch((err) => console.log(err));
+
+
+
+module.exports = app;
