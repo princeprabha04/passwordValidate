@@ -21,7 +21,7 @@ function App() {
       ></div>
       <div>
         <div className="nameClass">
-          <h2 style={{ color: "#fff" }}>Mohamed Basith</h2>
+          <h2 style={{ color: "#fff" }}>Mohameda Basith</h2>
           <h4 style={{ color: "#fff" }}>Fullstack Developer</h4>
           <button className="buttonTask" onClick={handleNavigate}>
             VIEW TASK
